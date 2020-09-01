@@ -11,4 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <ImageView
+        android:id="@+id/action_face"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/camera_preview" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

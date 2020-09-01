@@ -1,5 +1,6 @@
 package com.bhanu.facerecog
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
@@ -24,6 +25,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         firebaseFaceDetector()
+        clickListeners()
+    }
+
+    private fun clickListeners() {
+        user_face_img.setOnClickListener {
+            val intent = Intent(this,CameraActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun firebaseFaceDetector() {
@@ -43,26 +52,11 @@ class MainActivity : AppCompatActivity() {
 
         val result = detector.process(inputImage)
             .addOnSuccessListener { faces ->
-                // Task completed successfully
-
-                val myRectPain = Paint()
-                myRectPain.strokeWidth = 10f
-                myRectPain.color = Color.RED
-                myRectPain.style = Paint.Style.STROKE
-
-                val tempBitmap = Bitmap.createBitmap(
-                    inputImage.width,
-                    inputImage.height,
-                    Bitmap.Config.RGB_565
-                )
-
-                val tempCanvas = Canvas(tempBitmap)
-                tempCanvas.drawBitmap(bitmap, 0.0f, 0.0f, null)
                 Log.d(TAG,"size: ${faces.size}")
                 for (face: Face in faces){
                     val rect = face.boundingBox
-                    tempCanvas.drawRect(rect.left.toFloat(),rect.top.toFloat(), rect.right.toFloat(), rect.bottom.toFloat(), myRectPain)
-                    user_face_img.setImageDrawable(BitmapDrawable(resources,tempBitmap))
+                    val bitmap = Bitmap.createBitmap(bitmap,rect.left,rect.top,rect.width(),rect.height())
+                    user_face_img.setImageDrawable(BitmapDrawable(resources,bitmap))
                 }
 
             }
