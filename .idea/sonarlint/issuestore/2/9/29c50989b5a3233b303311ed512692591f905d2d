@@ -1,0 +1,165 @@
+
+i	java:S100ğ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¤íÙàøÿÿÿÿ
+1
+java:S3626)"Remove this redundant jump.(ûÁİ…
+2
+java:S3626"Remove this redundant jump.(ûÁİ…
+d	java:S100¥"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¾„Ü‘
+d	java:S100©"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„Ë„
+u
+java:S1488©"^Immediately return this expression instead of assigning it to the temporary variable "retVal".(´˜ôê
+g	java:S117ø"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(úº¬¹
+l	java:S117ï"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ß’Ü úÿÿÿÿ
+2
+java:S3626Ñ"Remove this redundant jump.(ûÁİ…
+2
+java:S3626Â"Remove this redundant jump.(ûÁİ…
+l	java:S117ï"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ß’Ü úÿÿÿÿ
+i	java:S100²"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(å¬àâşÿÿÿÿ
+d	java:S100»"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(èñó‰
+y
+java:S14885"^Immediately return this expression instead of assigning it to the temporary variable "retVal".(µÈşòşÿÿÿÿ
+i	java:S100¾"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¦Âñùÿÿÿÿ
+c	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(®Ş¢ä
+2
+java:S3626›"Remove this redundant jump.(ûÁİ…
+s
+java:S1488q"^Immediately return this expression instead of assigning it to the temporary variable "retVal".(˜‰“n
+i	java:S100¸"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(«ò©õøÿÿÿÿ
+g	java:S117©"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„Ë„
+g	java:S117Ú"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(îÕÑ—
+d	java:S100à"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(´É‘¦
+u
+java:S1488·"^Immediately return this expression instead of assigning it to the temporary variable "retVal".(Çş€´
+l	java:S117¯"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÒÛÔšıÿÿÿÿ
+l	java:S117€"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢ó‰Óüÿÿÿÿ
+l	java:S117é"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±ÀÃıÿÿÿÿ
+F
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ
+c	java:S100¤"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Óéîp
+g	java:S117ø"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(úº¬¹
+g	java:S117’"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÚŸŒß
+l	java:S117ï"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ß’Ü úÿÿÿÿ
+i	java:S100Ö"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äØÈ¼ûÿÿÿÿ
+2
+java:S3626©"Remove this redundant jump.(ûÁİ…
+i	java:S100é"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±ÀÃıÿÿÿÿ
+d	java:S100õ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¯Ëø“
+l	java:S117¡"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢ó‰Óüÿÿÿÿ
+z
+java:S1488á"^Immediately return this expression instead of assigning it to the temporary variable "retVal".(ËÕÚŸıÿÿÿÿ
+g	java:S117¢"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÚŸŒß
+g	java:S117¨"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡À¤Â
+l	java:S117ã"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ßÔÓãúÿÿÿÿ
+o
+java:S1128"TRemove this unnecessary import: same package classes are always implicitly imported.(¯œ†Çşÿÿÿÿ
+f	java:S117à"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ûÉ‹-
+l	java:S117ÿ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ø¨Í×ÿÿÿÿÿ
+i	java:S100ï"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ß’Ü úÿÿÿÿ
+d	java:S100ş"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ô¾ï
+z
+java:S1488Å"^Immediately return this expression instead of assigning it to the temporary variable "retVal".(¹ìĞ£şÿÿÿÿ
+d	java:S100æ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(—”ı¸
+d	java:S100û"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÆÕ•ú
+z
+java:S1488"^Immediately return this expression instead of assigning it to the temporary variable "retVal".(®……ûøÿÿÿÿ
+i	java:S100ã"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ßÔÓãúÿÿÿÿ
+y
+java:S1488U"^Immediately return this expression instead of assigning it to the temporary variable "retVal".(³‰Îùÿÿÿÿ
+o
+java:S1128"TRemove this unnecessary import: same package classes are always implicitly imported.(§ùşÿÿÿÿ
+I
+java:S1113š"-Do not override the Object.finalize() method.(ÖÒ˜Ùùÿÿÿÿ
+l	java:S117ã"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ßÔÓãúÿÿÿÿ
+d	java:S100µ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µè«Ë
+l	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ø¨Í×ÿÿÿÿÿ
+d	java:S100ì"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(˜ŒÑ
+t
+java:S1488c"^Immediately return this expression instead of assigning it to the temporary variable "retVal".(œ²Ãê
+g	java:S117æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(—”ı¸
+2
+java:S3626æ"Remove this redundant jump.(ûÁİ…
+u
+java:S1488›"^Immediately return this expression instead of assigning it to the temporary variable "retVal".(«¥şÕ
+i	java:S100Á"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(âï­æûÿÿÿÿ
+i	java:S100ò"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(È¯®–ûÿÿÿÿ
+l	java:S117Ó"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğ†öÇúÿÿÿÿ
+2
+java:S3626‡"Remove this redundant jump.(ûÁİ…
+2
+java:S3626Ô"Remove this redundant jump.(ûÁİ…
+W	java:S107ï"<Method has 8 parameters, which is greater than 7 authorized.(ß’Ü úÿÿÿÿ
+g	java:S117Í"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Š×€˜
+l	java:S117‘"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢ó‰Óüÿÿÿÿ
+d	java:S100Ê"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Î”¡“
+z
+java:S1488ı"^Immediately return this expression instead of assigning it to the temporary variable "retVal".(Ã¾ı½øÿÿÿÿ
+i	java:S100Ó"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğ†öÇúÿÿÿÿ
+2
+java:S3626–"Remove this redundant jump.(ûÁİ…
+g	java:S117´"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Š×€˜
+d	java:S100Ğ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±÷‰Ö
+l	java:S117ï"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ß’Ü úÿÿÿÿ
+t
+java:S1488"^Immediately return this expression instead of assigning it to the temporary variable "retVal".(¾ÃÃß
+z
+java:S1488Ó"^Immediately return this expression instead of assigning it to the temporary variable "retVal".(€×´µşÿÿÿÿ
+g	java:S117Ù"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(è«¬å
+d	java:S100¨"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡À¤Â
+d	java:S100ñ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(şÀ½ò
+y
+java:S1488>"^Immediately return this expression instead of assigning it to the temporary variable "retVal".(¬…•øÿÿÿÿ
+2
+java:S3626…"Remove this redundant jump.(ûÁİ…
+l	java:S117é"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±ÀÃıÿÿÿÿ
+g	java:S117¾"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Š×€˜
+l	java:S117¶"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ø¨Í×ÿÿÿÿÿ
+2
+java:S3626Â"Remove this redundant jump.(ûÁİ…
+i	java:S100¯"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÒÛÔšıÿÿÿÿ
+d	java:S100İ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Úª±Ú
+j
+java:S1128"TRemove this unnecessary import: same package classes are always implicitly imported.(·«Ë
+g	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÚŸŒß
+l	java:S117ï"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ß’Ü úÿÿÿÿ
+l	java:S117¨"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ø¨Í×ÿÿÿÿÿ
+2
+java:S3626´"Remove this redundant jump.(ûÁİ…
+i	java:S100Ç"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¼­’üÿÿÿÿÿ
+d	java:S100ø"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(úº¬¹
+g	java:S117æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(—”ı¸
+2
+java:S3626•"Remove this redundant jump.(ûÁİ…
+d	java:S100Ù"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(è«¬å
+d	java:S100Ú"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(îÕÑ—
+g	java:S117İ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Úª±Ú
+l	java:S117ã"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ßÔÓãúÿÿÿÿ
+g	java:S117»"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(èñó‰
+l	java:S117ò"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(È¯®–ûÿÿÿÿ
+2
+java:S3626Ë"Remove this redundant jump.(ûÁİ…
+2
+java:S3626ù"Remove this redundant jump.(ûÁİ…
+2
+java:S3626İ"Remove this redundant jump.(ûÁİ…
+2
+java:S3626ë"Remove this redundant jump.(ûÁİ…
+t
+java:S1488L"^Immediately return this expression instead of assigning it to the temporary variable "retVal".(ü›ší
+l	java:S117Ç"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¼­’üÿÿÿÿÿ
+2
+java:S3626¦"Remove this redundant jump.(ûÁİ…
+i	java:S100Ä"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬ÛæÇùÿÿÿÿ
+l	java:S117¾"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¦Âñùÿÿÿÿ
+g	java:S117æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(—”ı¸
+d	java:S100¬"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¾¤¾
+l
+java:S1128"QRemove this unnecessary import: java.lang classes are always implicitly imported.(ôİÕıÿÿÿÿ
+z
+java:S1488ï"^Immediately return this expression instead of assigning it to the temporary variable "retVal".(àâ¸Òşÿÿÿÿ
+d	java:S100¡"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğœã
+d	java:S100Í"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÔÄà•
+g	java:S117ñ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(şÀ½ò
+l	java:S117ğ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¤íÙàøÿÿÿÿ
+2
+java:S3626¸"Remove this redundant jump.(ûÁİ…
