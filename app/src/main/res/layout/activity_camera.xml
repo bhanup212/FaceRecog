@@ -11,13 +11,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <TextView
+        android:id="@+id/recogne_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_green_dark"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/face_img"
+        app:layout_constraintEnd_toEndOf="@+id/face_img"
+        app:layout_constraintStart_toStartOf="@+id/face_img"
+        tools:text="12.00000000" />
     <ImageView
-        android:id="@+id/action_face"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@color/colorPrimary"
+        android:id="@+id/face_img"
+        android:layout_width="112dp"
+        android:layout_height="112dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/camera_preview" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

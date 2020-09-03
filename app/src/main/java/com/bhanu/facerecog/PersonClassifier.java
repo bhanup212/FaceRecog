@@ -1,4 +1,4 @@
-package com.bhanu.facerecog.tflite;
+package com.bhanu.facerecog;
 
 import android.graphics.Bitmap;
 import android.graphics.RectF;
@@ -33,6 +33,9 @@ public interface PersonClassifier {
          */
         private final String id;
 
+        /** Display name for the recognition. */
+        private final String title;
+
         /**
          * A sortable score for how good the recognition is relative to others. Lower should be better.
          */
@@ -45,13 +48,20 @@ public interface PersonClassifier {
         private Bitmap crop;
 
         public Recognition(
-                final String id,final Float distance, final RectF location) {
+                final String id, final String title, final Float distance, final RectF location) {
             this.id = id;
+            this.title = title;
             this.distance = distance;
             this.location = location;
             this.color = null;
             this.extra = null;
             this.crop = null;
+        }
+
+        public Recognition(final  String id, String title, final Float distance){
+            this.id = id;
+            this.title = title;
+            this.distance = distance;
         }
 
         public void setExtra(Object extra) {
@@ -67,6 +77,10 @@ public interface PersonClassifier {
 
         public String getId() {
             return id;
+        }
+
+        public String getTitle() {
+            return title;
         }
 
         public Float getDistance() {
@@ -86,6 +100,10 @@ public interface PersonClassifier {
             String resultString = "";
             if (id != null) {
                 resultString += "[" + id + "] ";
+            }
+
+            if (title != null) {
+                resultString += title + " ";
             }
 
             if (distance != null) {

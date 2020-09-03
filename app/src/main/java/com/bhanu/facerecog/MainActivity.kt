@@ -3,6 +3,7 @@ package com.bhanu.facerecog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.Matrix
 import android.graphics.RectF
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
@@ -10,9 +11,7 @@ import android.util.Log
 import android.util.Size
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.bhanu.facerecog.tflite.FaceRecogModel
-import com.bhanu.facerecog.tflite.PersonClassifier
-import com.bhanu.facerecog.tflite.PersonClassifier.Recognition
+import com.bhanu.facerecog.PersonClassifier.Recognition
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.face.Face
 import com.google.mlkit.vision.face.FaceDetection
@@ -33,17 +32,17 @@ class MainActivity : AppCompatActivity() {
         private const val MINIMUM_CONFIDENCE_TF_OD_API = 0.5f
         private const val MAINTAIN_ASPECT = false
         private val DESIRED_PREVIEW_SIZE: Size = Size(640, 480)
+        lateinit var personClassifier: PersonClassifier
     }
 
     private lateinit var faceDetector: FaceDetector
-    private lateinit var personClassifier: PersonClassifier
-    private lateinit var faceMap: Bitmap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         clickListeners()
         initTfLite()
+        firebaseFaceDetector()
     }
 
     private fun initTfLite() {
@@ -76,27 +75,37 @@ class MainActivity : AppCompatActivity() {
             .enableTracking()
             .build()
 
-        val drawable = ContextCompat.getDrawable(this, R.drawable.sample_aadhar)
-        val bitmap = (drawable as BitmapDrawable).bitmap
-        val inputImage = InputImage.fromBitmap(bitmap, 0)
+        val drawable = ContextCompat.getDrawable(this, R.drawable.mark2)
+        val bitmapPerson = (drawable as BitmapDrawable).bitmap
+        val inputImage = InputImage.fromBitmap(bitmapPerson, 0)
 
-        val detector = FaceDetection.getClient(highAccuracyOpts)
+        faceDetector = FaceDetection.getClient(highAccuracyOpts)
 
-        val result = detector.process(inputImage)
+        val result = faceDetector.process(inputImage)
             .addOnSuccessListener { faces ->
                 Log.d(TAG, "size: ${faces.size}")
                 for (face: Face in faces) {
                     val rect = face.boundingBox
+                    val rectF = RectF(rect)
+
                     val bitmap = Bitmap.createBitmap(
-                        bitmap,
+                        bitmapPerson,
                         rect.left,
                         rect.top,
                         rect.width(),
                         rect.height()
                     )
-                    // checkFaces(bitmap)
-                    onFaceDetected(face,bitmap)
-                    user_face_img.setImageDrawable(BitmapDrawable(resources, bitmap))
+                    val crop = Bitmap.createScaledBitmap(bitmap,112, 112, false)
+                    user_face_img.setImageDrawable(BitmapDrawable(resources, crop))
+                    val recognition = Recognition("1234","person",-1f,rectF)
+                    recognition.crop = crop
+                    personClassifier.register("lady",recognition)
+                    // val list1 = personClassifier.recognizeImage(crop,true)
+                    val list = personClassifier.recognizeImage(crop,true)
+                    if (list.isNotEmpty()){
+                        val p = list[0]
+                        Log.d(TAG,"label: ${p.title}, distance: ${p.distance}")
+                    }
                 }
 
             }
@@ -127,11 +136,35 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-        val result = Recognition(
+        /*val result = Recognition(
             "0", confidence, boundingBox
-        )
+        )*/
 
-        result.location = boundingBox
-        mappedRecognitions.add(result)
+        // result.location = boundingBox
+        // mappedRecognitions.add(result)
+    }
+
+    private fun createTransform(
+        srcWidth: Int,
+        srcHeight: Int,
+        dstWidth: Int,
+        dstHeight: Int,
+        applyRotation: Int
+    ): Matrix {
+        val matrix = Matrix()
+        if (applyRotation != 0) {
+            if (applyRotation % 90 != 0) {
+                Log.d(
+                    CameraActivity.TAG,
+                    "Rotation of %d % 90 != 0 $applyRotation"
+                )
+            }
+            matrix.postTranslate(-srcWidth / 2.0f, -srcHeight / 2.0f)
+            matrix.postRotate(applyRotation.toFloat())
+        }
+        if (applyRotation != 0) {
+            matrix.postTranslate(dstWidth / 2.0f, dstHeight / 2.0f)
+        }
+        return matrix
     }
 }
