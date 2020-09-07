@@ -3,7 +3,6 @@ package com.bhanu.facerecog
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.Matrix
-import android.graphics.RectF
 import android.os.Bundle
 import android.util.Log
 import android.util.Size
@@ -14,13 +13,14 @@ import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
-import com.bhanu.facerecog.MainActivity.Companion.TF_OD_API_INPUT_SIZE
+import com.bhanu.facerecog.tflite.MobileFaceNet
+import com.bhanu.facerecog.utils.bitmapToNv21
+import com.bhanu.facerecog.utils.toBitmap
 import com.google.common.util.concurrent.ListenableFuture
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.face.FaceDetection
-import com.google.mlkit.vision.objects.ObjectDetection
-import com.google.mlkit.vision.objects.ObjectDetector
-import com.google.mlkit.vision.objects.defaults.ObjectDetectorOptions
+import com.google.mlkit.vision.face.FaceDetector
+import com.google.mlkit.vision.face.FaceDetectorOptions
 import kotlinx.android.synthetic.main.activity_camera.*
 import java.util.concurrent.Executors
 
@@ -30,24 +30,26 @@ class CameraActivity : AppCompatActivity() {
         const val TAG = "CameraActivity"
     }
 
-    private lateinit var objectDetector: ObjectDetector
+    private lateinit var detector: FaceDetector
     private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
-
+    private lateinit var faceNet: MobileFaceNet
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera)
+        faceNet = MobileFaceNet(assets)
         initFirebaseObject()
         startCamera()
     }
 
     private fun initFirebaseObject() {
-        val options = ObjectDetectorOptions.Builder()
-            .setDetectorMode(ObjectDetectorOptions.STREAM_MODE)
-            .enableClassification()  // Optional
+        val accurateOps = FaceDetectorOptions.Builder()
+            .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_ACCURATE)
+            .setLandmarkMode(FaceDetectorOptions.LANDMARK_MODE_ALL)
+            .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_ALL)
             .build()
-        objectDetector = ObjectDetection.getClient(options)
-        val faceDetector = FaceDetection.getClient()
+
+        detector = FaceDetection.getClient(accurateOps)
     }
 
     private fun startCamera() {
@@ -85,61 +87,48 @@ class CameraActivity : AppCompatActivity() {
         @SuppressLint("UnsafeExperimentalUsageError")
         override fun analyze(imageProxy: ImageProxy) {
             val mediaImage = imageProxy.image
-            val rotation = degreesToFirebaseRotation(imageProxy.imageInfo.rotationDegrees)
-            // Log.d(TAG,"rotation is: $rotation")
+            val rotation = imageProxy.imageInfo.rotationDegrees
+            Log.d(TAG, "rotation is: $rotation")
             mediaImage?.let { image ->
-                val overlay = imageProxy.toBitmap()
-                val firebaseImage = InputImage.fromMediaImage(mediaImage, rotation)
+                val bitmap = mediaImage.toBitmap()
 
-                FaceDetection.getClient().process(firebaseImage)
-                    .addOnSuccessListener { faceList ->
-                        // Log.d(TAG, "faceList: ${faceList.size}")
-                        if (faceList.isNotEmpty()){
-                            for (face in faceList){
-                                val rect = face.boundingBox
+                val inputImage = InputImage.fromByteArray(
+                    bitmap.bitmapToNv21(), bitmap.width, bitmap.height, rotation,
+                    InputImage.IMAGE_FORMAT_NV21
+                )
+                detector.process(inputImage)
+                    .addOnSuccessListener { faces ->
+                        Log.d(TAG, "faceList: ${faces.size}")
+                        for (face in faces) {
+                            val rect = face.boundingBox
 
-                                try {
-                                    val bitmap = Bitmap.createBitmap(
-                                        overlay,
-                                        rect.left,
-                                        rect.top,
-                                        rect.width(),
-                                        rect.height()
-                                    )
-                                    val crop = Bitmap.createScaledBitmap(bitmap,112, 112, false)
-                                    face_img.setImageBitmap(crop)
-                                    val recognizeList = MainActivity.personClassifier.recognizeImage(
-                                        crop,
-                                        false
-                                    )
-                                    if (recognizeList.isNotEmpty()){
-                                        Log.d(TAG, "recognition %: ${recognizeList[0].distance}")
-                                        recogne_tv.text = "${recognizeList[0].distance}"
-                                    }else{
-                                        Log.e(TAG, "faces didn't match")
-                                    }
-                                } catch (e: Exception) {
-                                    e.printStackTrace()
-                                }
+                            val bitmap = Bitmap.createBitmap(
+                                bitmap,
+                                rect.left,
+                                rect.top,
+                                rect.width(),
+                                rect.height()
+                            )
 
-                            }
+                            val crop = Bitmap.createScaledBitmap(
+                                bitmap, 112, 112, false
+                            )
+
+                            val matrix = Matrix()
+                            matrix.postRotate(90f)
+
+                            val rotatedBitmap = Bitmap.createBitmap(crop, 0, 0, crop.getWidth(), crop.getHeight(), matrix, true);
+                            val similarity = faceNet.compare(MainActivity.userFace, rotatedBitmap)
+                            face_img.setImageBitmap(rotatedBitmap)
+                            recogne_tv.text = "${similarity * 100}"
                         }
                         imageProxy.close()
                     }
                     .addOnFailureListener { e ->
-                        // IMPORTANT
-                        imageProxy.close()
+                        e.printStackTrace()
                     }
             }
         }
 
-    }
-
-    private fun degreesToFirebaseRotation(degrees: Int): Int = when (degrees) {
-        0 -> 0
-        90 -> 90
-        180 -> 180
-        270 -> 270
-        else -> throw Exception("Rotation must be 0, 90, 180, or 270.")
     }
 }
