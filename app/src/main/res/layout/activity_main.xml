@@ -8,13 +8,50 @@
 
     <ImageView
         android:id="@+id/user_face_img"
-        android:layout_width="112dp"
-        android:layout_height="112dp"
-        android:src="@drawable/sample_aadhar"
+        android:layout_width="280dp"
+        android:layout_height="200dp"
         android:scaleType="fitXY"
+        android:src="@drawable/sample_aadhar"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.122" />
+
+    <Button
+        android:id="@+id/choose_doc_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="@string/upload_aadhar"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="@+id/user_face_img"
+        app:layout_constraintStart_toStartOf="@+id/user_face_img"
+        app:layout_constraintTop_toBottomOf="@+id/user_face_img" />
+
+    <ImageView
+        android:id="@+id/person_face_img"
+        android:layout_width="112dp"
+        android:layout_height="112dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/choose_doc_btn"
+        app:layout_constraintStart_toStartOf="@+id/choose_doc_btn"
+        app:layout_constraintTop_toBottomOf="@+id/choose_doc_btn" />
+
+    <Button
+        android:id="@+id/open_camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:text="@string/compare_faces"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/person_face_img" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

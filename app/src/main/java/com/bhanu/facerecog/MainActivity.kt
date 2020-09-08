@@ -1,10 +1,15 @@
 package com.bhanu.facerecog
 
 import android.Manifest
+import android.app.Activity
 import android.content.Intent
+import android.database.Cursor
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -24,6 +29,8 @@ class MainActivity : AppCompatActivity() {
     companion object {
         const val TAG = "MainActivity"
         var userFace: Bitmap? = null
+        const val PICK_IMAGE_CODE = 110
+        const val PERMISSION_CODE = 111
     }
 
     private lateinit var detector: FaceDetector
@@ -37,11 +44,16 @@ class MainActivity : AppCompatActivity() {
         requestCameraPermission()
         initFaceVision()
         clickListeners()
-        firebaseFaceDetector()
+        firebaseFaceDetector(getSampleImage())
     }
 
-    private fun requestCameraPermission(){
-        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), 100)
+    private fun requestCameraPermission() {
+        ActivityCompat.requestPermissions(
+            this, arrayOf(
+                Manifest.permission.CAMERA,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ), PERMISSION_CODE
+        )
     }
 
     private fun initFaceVision() {
@@ -55,16 +67,67 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun clickListeners() {
-        user_face_img.setOnClickListener {
-            val intent = Intent(this, CameraActivity::class.java)
-            startActivity(intent)
+        open_camera.setOnClickListener {
+            if (userFace != null) {
+                val intent = Intent(this, CameraActivity::class.java)
+                startActivity(intent)
+            } else {
+                Toast.makeText(
+                    this,
+                    "No face has been detected in the document. please upload correct document",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+        choose_doc_btn.setOnClickListener {
+            openImagePicker()
+        }
+
+    }
+
+    private fun openImagePicker() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_PICK
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when(requestCode){
+            PERMISSION_CODE -> {
+                Log.d(TAG, " all permissions granded")
+            }
+            PICK_IMAGE_CODE -> {
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    val selectedImage: Uri = data.data!!
+                    val picturePath = getPathFromURI(selectedImage)
+                    Log.d(TAG," picture path: $picturePath")
+                    val bitmap = BitmapFactory.decodeFile(picturePath)
+                    if (bitmap != null) {
+                        firebaseFaceDetector(bitmap)
+                    } else {
+                        Toast.makeText(this, "File error", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
     }
 
-    private fun firebaseFaceDetector() {
-        val drawable = ContextCompat.getDrawable(this, R.drawable.bhanu)
-        val bitmapPerson = (drawable as BitmapDrawable).bitmap
+    private fun getPathFromURI(contentUri: Uri): String? {
+        var res: String? = null
+        val proj = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor: Cursor? = contentResolver.query(contentUri, proj, "", null, "")
+        if (cursor != null && cursor.moveToFirst()) {
+            val column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            res = cursor.getString(column_index)
+        }
+        cursor?.close()
+        return res
+    }
 
+    private fun firebaseFaceDetector(bitmapPerson: Bitmap) {
+        user_face_img.setImageBitmap(bitmapPerson)
         val inputImage = InputImage.fromByteArray(
             bitmapPerson.bitmapToNv21(),
             bitmapPerson.width,
@@ -75,7 +138,7 @@ class MainActivity : AppCompatActivity() {
 
         detector.process(inputImage)
             .addOnSuccessListener { faces ->
-                if ( faces.isNotEmpty() ) {
+                if (faces.isNotEmpty()) {
 
                     Log.d(TAG, "faces Found")
                     val rect = faces[0]!!.boundingBox
@@ -88,13 +151,13 @@ class MainActivity : AppCompatActivity() {
                     )
 
                     val crop = Bitmap.createScaledBitmap(
-                        bitmap, 112, 112, false)
+                        bitmap, 112, 112, false
+                    )
 
                     userFace = crop
-                    Log.d(TAG, "rect is: $rect")
-                    user_face_img.setImageBitmap(crop)
-                    Log.d(TAG,"Similary Score: ${faceNet.compare(crop, crop)}")
-                }else{
+                    person_face_img.setImageBitmap(crop)
+                    Log.d(TAG, "Similary Score: ${faceNet.compare(crop, crop)}")
+                } else {
                     Log.e(TAG, "No faces found")
                     Toast.makeText(this, "No face detected", Toast.LENGTH_LONG).show()
                 }
@@ -102,5 +165,10 @@ class MainActivity : AppCompatActivity() {
             .addOnFailureListener { e ->
                 e.printStackTrace()
             }
+    }
+
+    private fun getSampleImage(): Bitmap {
+        val drawable = ContextCompat.getDrawable(this, R.drawable.sample_aadhar)
+        return (drawable as BitmapDrawable).bitmap
     }
 }

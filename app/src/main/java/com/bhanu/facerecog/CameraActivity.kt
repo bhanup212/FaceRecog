@@ -100,27 +100,31 @@ class CameraActivity : AppCompatActivity() {
                     .addOnSuccessListener { faces ->
                         Log.d(TAG, "faceList: ${faces.size}")
                         for (face in faces) {
-                            val rect = face.boundingBox
+                            try {
+                                val rect = face.boundingBox
 
-                            val bitmap = Bitmap.createBitmap(
-                                bitmap,
-                                rect.left,
-                                rect.top,
-                                rect.width(),
-                                rect.height()
-                            )
+                                val bitmap = Bitmap.createBitmap(
+                                    bitmap,
+                                    rect.left,
+                                    rect.top,
+                                    rect.width(),
+                                    rect.height()
+                                )
 
-                            val crop = Bitmap.createScaledBitmap(
-                                bitmap, 112, 112, false
-                            )
+                                val crop = Bitmap.createScaledBitmap(
+                                    bitmap, 112, 112, false
+                                )
 
-                            val matrix = Matrix()
-                            matrix.postRotate(90f)
+                                val matrix = Matrix()
+                                matrix.postRotate(90f)
 
-                            val rotatedBitmap = Bitmap.createBitmap(crop, 0, 0, crop.getWidth(), crop.getHeight(), matrix, true);
-                            val similarity = faceNet.compare(MainActivity.userFace, rotatedBitmap)
-                            face_img.setImageBitmap(rotatedBitmap)
-                            recogne_tv.text = "${similarity * 100}"
+                                val rotatedBitmap = Bitmap.createBitmap(crop, 0, 0, crop.getWidth(), crop.getHeight(), matrix, true);
+                                val similarity = faceNet.compare(MainActivity.userFace, rotatedBitmap)
+                                face_img.setImageBitmap(rotatedBitmap)
+                                recogne_tv.text = "${similarity * 100}"
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
                         }
                         imageProxy.close()
                     }
